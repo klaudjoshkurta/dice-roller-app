@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.gms.google-services")
-    id("com.google.devtools.ksp") version "2.0.0-1.0.21"
     id("com.google.dagger.hilt.android")
+    id("kotlin-kapt")
 }
 
 android {
@@ -63,18 +63,24 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
+    implementation(libs.kotlin.stdlib)
+
     /** Google Font Provider */
     implementation(libs.androidx.ui.text.google.fonts)
 
     /** ViewModel */
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
+    /** Live Data */
+    implementation(libs.androidx.runtime.livedata)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+
     /** Compose Navigation */
     implementation(libs.androidx.navigation.compose)
 
     /** Hilt */
     implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
+    kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
     /** Navigation */
@@ -82,7 +88,7 @@ dependencies {
 
     /** Room */
     implementation(libs.androidx.room.runtime)
-    ksp(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
     /** Firebase BoM */
@@ -90,6 +96,7 @@ dependencies {
     /** TODO: Add the dependencies for Firebase products you want to use */
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+    implementation(libs.firebase.firestore.ktx)
 
     testImplementation(libs.junit)
 
