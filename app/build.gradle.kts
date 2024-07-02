@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.gms.google-services")
+    id("com.google.devtools.ksp") version "2.0.0-1.0.21"
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -60,8 +62,29 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
     /** Google Font Provider */
     implementation(libs.androidx.ui.text.google.fonts)
+
+    /** ViewModel */
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    /** Compose Navigation */
+    implementation(libs.androidx.navigation.compose)
+
+    /** Hilt */
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    /** Navigation */
+    implementation(libs.androidx.navigation.compose)
+
+    /** Room */
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
+
     /** Firebase BoM */
     /** When using the BoM, don't specify versions in Firebase dependencies */
     /** TODO: Add the dependencies for Firebase products you want to use */
