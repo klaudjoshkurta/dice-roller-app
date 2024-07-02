@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -61,6 +62,11 @@ dependencies {
     implementation(libs.androidx.material3)
     /** Google Font Provider */
     implementation(libs.androidx.ui.text.google.fonts)
+    /** Firebase BoM */
+    /** When using the BoM, don't specify versions in Firebase dependencies */
+    /** TODO: Add the dependencies for Firebase products you want to use */
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
 
     testImplementation(libs.junit)
 

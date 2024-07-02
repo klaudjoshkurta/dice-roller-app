@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1041915650384",
+    "project_id": "thoughtsai",
+    "storage_bucket": "thoughtsai.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1041915650384:android:56d9f2c9754d6f7e730c55",
+        "android_client_info": {
+          "package_name": "com.klaudjoshkurta.thoughts"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC74vZ_MuMTxzEZ2-PY7yZjvApa2Wdehv0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
