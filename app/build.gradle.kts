@@ -2,8 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.gms.google-services")
-    id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
     id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -79,8 +80,8 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     /** Hilt */
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    implementation("com.google.dagger:hilt-android:2.48")
+    kapt("com.google.dagger:hilt-android-compiler:2.48")
     implementation(libs.androidx.hilt.navigation.compose)
 
     /** Navigation */
@@ -107,4 +108,9 @@ dependencies {
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }
