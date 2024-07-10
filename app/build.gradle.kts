@@ -1,10 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.gms.google-services")
-    id("com.google.devtools.ksp")
-    id("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -63,41 +59,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-
-    implementation(libs.kotlin.stdlib)
-
     /** Google Font Provider */
     implementation(libs.androidx.ui.text.google.fonts)
-
-    /** ViewModel */
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-
-    /** Live Data */
-    implementation(libs.androidx.runtime.livedata)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-
-    /** Compose Navigation */
-    implementation(libs.androidx.navigation.compose)
-
-    /** Hilt */
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-android-compiler:2.48")
-    implementation(libs.androidx.hilt.navigation.compose)
-
-    /** Navigation */
-    implementation(libs.androidx.navigation.compose)
-
-    /** Room */
-    implementation(libs.androidx.room.runtime)
-    kapt(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
-
-    /** Firebase BoM */
-    /** When using the BoM, don't specify versions in Firebase dependencies */
-    /** TODO: Add the dependencies for Firebase products you want to use */
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.analytics)
-    implementation(libs.firebase.firestore.ktx)
 
     testImplementation(libs.junit)
 
@@ -108,9 +71,4 @@ dependencies {
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-}
-
-// Allow references to generated code
-kapt {
-    correctErrorTypes = true
 }
