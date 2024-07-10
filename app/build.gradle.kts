@@ -61,6 +61,8 @@ dependencies {
     implementation(libs.androidx.material3)
     /** Google Font Provider */
     implementation(libs.androidx.ui.text.google.fonts)
+    /** Material Symbols */
+    implementation("androidx.compose.material:material-icons-extended:1.6.8")
 
     testImplementation(libs.junit)
 
