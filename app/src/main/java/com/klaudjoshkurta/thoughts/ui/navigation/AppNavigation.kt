@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.klaudjoshkurta.thoughts.ui.home.HomeScreen
+import com.klaudjoshkurta.thoughts.ui.input.FullInputScreen
 
 sealed class Screen(val route: String) {
     data object Home : Screen("home")
@@ -24,7 +25,17 @@ fun AppNavigation(
         modifier = modifier
     ) {
         composable(Screen.Home.route) {
-            HomeScreen()
+            HomeScreen(
+                onFullScreenClick = { navController.navigate(Screen.FullScreenInput.route) }
+            )
+        }
+        composable(Screen.FullScreenInput.route) {
+            FullInputScreen(
+                onCloseClicked = {
+                    navController.popBackStack()
+                    navController.navigateUp()
+                }
+            )
         }
     }
 }

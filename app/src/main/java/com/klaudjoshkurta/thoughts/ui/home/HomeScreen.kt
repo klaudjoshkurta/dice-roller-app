@@ -15,7 +15,9 @@ import com.klaudjoshkurta.thoughts.ui.home.composables.InputSheet
 import com.klaudjoshkurta.thoughts.ui.theme.ThoughtsTheme
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    onFullScreenClick: () -> Unit
+) {
 
     var value by remember { mutableStateOf("") }
 
@@ -24,7 +26,7 @@ fun HomeScreen() {
             InputSheet(
                 value = value,
                 onValueChange = { value = it },
-                onFullScreenClick = {},
+                onFullScreenClick = onFullScreenClick,
                 onCameraClick = {},
                 onVoiceClick = {}
             )
@@ -44,6 +46,8 @@ fun HomeScreen() {
 @Composable
 fun HomeScreenPreview() {
     ThoughtsTheme {
-        HomeScreen()
+        HomeScreen(
+            onFullScreenClick = {}
+        )
     }
 }

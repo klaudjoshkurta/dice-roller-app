@@ -1,15 +1,15 @@
-package com.klaudjoshkurta.thoughts.ui.home.composables
+@file:OptIn(ExperimentalMaterial3Api::class)
+
+package com.klaudjoshkurta.thoughts.ui.input
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,20 +18,22 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Camera
 import androidx.compose.material.icons.outlined.Mic
 import androidx.compose.material.icons.outlined.OpenInFull
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,36 +41,41 @@ import androidx.compose.ui.unit.sp
 import com.klaudjoshkurta.thoughts.ui.theme.ThoughtsTheme
 
 @Composable
-fun InputSheet(
-    modifier: Modifier = Modifier,
-    value: String,
-    onValueChange: (String) -> Unit,
-    onFullScreenClick: () -> Unit,
-    onCameraClick: () -> Unit,
-    onVoiceClick: () -> Unit
+fun FullInputScreen(
+    onCloseClicked: () -> Unit
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .shadow(
-                elevation = 10.dp,
-                RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp)
+    Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = {},
+                actions = {
+                    IconButton(onClick = onCloseClicked) {
+                        Icon(
+                            imageVector = Icons.Outlined.OpenInFull,
+                            contentDescription = null,
+                            modifier = Modifier.size(20.dp)
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background
+                )
             )
-            .background(MaterialTheme.colorScheme.background)
-            .border(
-                1.dp,
-                MaterialTheme.colorScheme.outlineVariant,
-                RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp)
-            )
-            .navigationBarsPadding()
-            .imePadding()
-    ) {
-        Row(
-            verticalAlignment = Alignment.Top,
+        }
+    ) { innerPadding ->
+
+        var value by remember { mutableStateOf("") }
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+                .imePadding()
+                .padding(innerPadding)
         ) {
             BasicTextField(
                 value = value,
-                onValueChange = onValueChange,
+                onValueChange = { value = it },
                 modifier = Modifier
                     .padding(horizontal = 16.dp, vertical = 16.dp)
                     .weight(1f),
@@ -87,33 +94,26 @@ fun InputSheet(
                     innerTextField()
                 }
             )
-            IconButton(onClick = onFullScreenClick) {
-                Icon(
-                    imageVector = Icons.Outlined.OpenInFull,
-                    contentDescription = null,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
-        }
-        Spacer(modifier = Modifier.height(24.dp))
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            Surface(
-                shape = RoundedCornerShape(200.dp)
+            Spacer(modifier = Modifier.weight(1f))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center,
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
+                Surface(
+                    shape = RoundedCornerShape(200.dp)
                 ) {
-                    IconButton(onClick = onVoiceClick) {
-                        Icon(imageVector = Icons.Outlined.Mic, contentDescription = null)
-                    }
-                    IconButton(onClick = onCameraClick) {
-                        Icon(imageVector = Icons.Outlined.Camera, contentDescription = null)
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        IconButton(onClick = {}) {
+                            Icon(imageVector = Icons.Outlined.Mic, contentDescription = null)
+                        }
+                        IconButton(onClick = {}) {
+                            Icon(imageVector = Icons.Outlined.Camera, contentDescription = null)
+                        }
                     }
                 }
             }
@@ -121,16 +121,12 @@ fun InputSheet(
     }
 }
 
-@Preview(widthDp = 412)
+@Preview
 @Composable
-fun InputSheetPreview() {
+fun FullInputScreenPreview() {
     ThoughtsTheme {
-        InputSheet(
-            value = "",
-            onValueChange = {},
-            onFullScreenClick = {},
-            onCameraClick = {},
-            onVoiceClick = {}
+        FullInputScreen(
+            onCloseClicked = {}
         )
     }
 }
