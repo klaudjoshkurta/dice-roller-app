@@ -62,7 +62,9 @@ dependencies {
     /** Google Font Provider */
     implementation(libs.androidx.ui.text.google.fonts)
     /** Material Symbols */
-    implementation("androidx.compose.material:material-icons-extended:1.6.8")
+    implementation(libs.androidx.material.icons.extended)
+    /** Compose Navigation */
+    implementation(libs.androidx.navigation.compose)
 
     testImplementation(libs.junit)
 
