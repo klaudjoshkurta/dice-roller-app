@@ -65,6 +65,7 @@ dependencies {
     implementation(libs.androidx.material.icons.extended)
     /** Compose Navigation */
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation.runtime.ktx)
 
     testImplementation(libs.junit)
 

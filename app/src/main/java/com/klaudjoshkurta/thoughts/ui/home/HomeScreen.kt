@@ -1,5 +1,10 @@
+@file:OptIn(ExperimentalSharedTransitionApi::class)
+
 package com.klaudjoshkurta.thoughts.ui.home
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -16,20 +21,28 @@ import com.klaudjoshkurta.thoughts.ui.theme.ThoughtsTheme
 
 @Composable
 fun HomeScreen(
-    onFullScreenClick: () -> Unit
+    onFullScreenClick: () -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope
 ) {
 
     var value by remember { mutableStateOf("") }
 
     Scaffold(
         bottomBar = {
-            InputSheet(
-                value = value,
-                onValueChange = { value = it },
-                onFullScreenClick = onFullScreenClick,
-                onCameraClick = {},
-                onVoiceClick = {}
-            )
+            with(sharedTransitionScope) {
+                InputSheet(
+                    value = value,
+                    onValueChange = { value = it },
+                    onFullScreenClick = onFullScreenClick,
+                    onCameraClick = {},
+                    onVoiceClick = {},
+                    modifier = Modifier.Companion.sharedElement(
+                        sharedTransitionScope.rememberSharedContentState(key = "inputSheet"),
+                        animatedVisibilityScope = animatedContentScope,
+                    )
+                )
+            }
         }
     ) { innerPadding ->
         Column(
@@ -39,15 +52,5 @@ fun HomeScreen(
         ) {
 
         }
-    }
-}
-
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    ThoughtsTheme {
-        HomeScreen(
-            onFullScreenClick = {}
-        )
     }
 }

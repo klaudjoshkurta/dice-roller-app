@@ -1,7 +1,10 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 
 package com.klaudjoshkurta.thoughts.ui.input
 
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -42,91 +45,89 @@ import com.klaudjoshkurta.thoughts.ui.theme.ThoughtsTheme
 
 @Composable
 fun FullInputScreen(
-    onCloseClicked: () -> Unit
+    onCloseClicked: () -> Unit,
+    sharedTransitionScope: SharedTransitionScope,
+    animatedContentScope: AnimatedContentScope
 ) {
-    Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {},
-                actions = {
-                    IconButton(onClick = onCloseClicked) {
-                        Icon(
-                            imageVector = Icons.Outlined.OpenInFull,
-                            contentDescription = null,
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background
-                )
-            )
-        }
-    ) { innerPadding ->
-
-        var value by remember { mutableStateOf("") }
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background)
-                .imePadding()
-                .padding(innerPadding)
-        ) {
-            BasicTextField(
-                value = value,
-                onValueChange = { value = it },
-                modifier = Modifier
-                    .padding(horizontal = 16.dp, vertical = 16.dp)
-                    .weight(1f),
-                textStyle = TextStyle(
-                    fontSize = 20.sp,
-                    color = MaterialTheme.colorScheme.onBackground
-                ),
-                decorationBox = { innerTextField ->
-                    if (value.isEmpty()) {
-                        Text(
-                            text = "What's on your mind?",
-                            color = MaterialTheme.colorScheme.onBackground.copy(0.6f),
-                            fontSize = 20.sp
-                        )
-                    }
-                    innerTextField()
-                }
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
-            ) {
-                Surface(
-                    shape = RoundedCornerShape(200.dp)
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        IconButton(onClick = {}) {
-                            Icon(imageVector = Icons.Outlined.Mic, contentDescription = null)
+    with(sharedTransitionScope) {
+        Scaffold(
+            topBar = {
+                CenterAlignedTopAppBar(
+                    title = {},
+                    actions = {
+                        IconButton(onClick = onCloseClicked) {
+                            Icon(
+                                imageVector = Icons.Outlined.OpenInFull,
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp)
+                            )
                         }
-                        IconButton(onClick = {}) {
-                            Icon(imageVector = Icons.Outlined.Camera, contentDescription = null)
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.background
+                    )
+                )
+            },
+            modifier = Modifier.Companion.sharedElement(
+                sharedTransitionScope.rememberSharedContentState(key = "inputSheet"),
+                animatedVisibilityScope = animatedContentScope,
+            )
+        ) { innerPadding ->
+
+            var value by remember { mutableStateOf("") }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+                    .imePadding()
+                    .padding(innerPadding)
+            ) {
+                BasicTextField(
+                    value = value,
+                    onValueChange = { value = it },
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp, vertical = 16.dp)
+                        .weight(1f),
+                    textStyle = TextStyle(
+                        fontSize = 20.sp,
+                        color = MaterialTheme.colorScheme.onBackground
+                    ),
+                    decorationBox = { innerTextField ->
+                        if (value.isEmpty()) {
+                            Text(
+                                text = "What's on your mind?",
+                                color = MaterialTheme.colorScheme.onBackground.copy(0.6f),
+                                fontSize = 20.sp
+                            )
+                        }
+                        innerTextField()
+                    }
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center,
+                ) {
+                    Surface(
+                        shape = RoundedCornerShape(200.dp)
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            IconButton(onClick = {}) {
+                                Icon(imageVector = Icons.Outlined.Mic, contentDescription = null)
+                            }
+                            IconButton(onClick = {}) {
+                                Icon(imageVector = Icons.Outlined.Camera, contentDescription = null)
+                            }
                         }
                     }
                 }
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun FullInputScreenPreview() {
-    ThoughtsTheme {
-        FullInputScreen(
-            onCloseClicked = {}
-        )
     }
 }
