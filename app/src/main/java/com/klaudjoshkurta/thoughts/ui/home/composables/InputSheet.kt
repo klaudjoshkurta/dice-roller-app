@@ -60,7 +60,7 @@ fun InputSheet(
             onClick = onSaveClick,
             enabled = enabled
         ) {
-            Text(text = stringResource(R.string.save))
+            Text(text = stringResource(R.string.save_button))
         }
     }
 }
