@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Thoughts</string>
+    <string name="save">Save</string>
+    <string name="thought_entry_hint">What\'s on your mind?</string>
 </resources>
