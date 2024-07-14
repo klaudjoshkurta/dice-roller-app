@@ -1,5 +1,7 @@
 package com.klaudjoshkurta.thoughts.ui.home.composables
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.MoreHoriz
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -46,7 +49,7 @@ fun ThoughtItem(
     ) {
         Text(
             text = thought.text,
-            style = MaterialTheme.typography.bodyLarge,
+            fontSize = 16.sp,
             color = MaterialTheme.colorScheme.onBackground,
             lineHeight = 24.sp
         )
@@ -66,12 +69,22 @@ fun ThoughtItem(
                     )
                 }
                 DropdownMenu(
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.background)
+                        .border(1.dp, MaterialTheme.colorScheme.outlineVariant),
                     expanded = expanded,
                     onDismissRequest = { expanded = false }
                 ) {
                     DropdownMenuItem(
                         text = { Text(text = "Delete thought") },
-                        onClick = { onDelete(thought) }
+                        onClick = { onDelete(thought) },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Outlined.Delete,
+                                contentDescription = null,
+                                modifier = Modifier.size(20.dp)
+                            )
+                        }
                     )
                 }
             }
